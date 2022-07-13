@@ -116,6 +116,7 @@ function validateTournament() {
     return false;
   } else {
     formData[4].setAttribute('data-error-visible', 'false');
+    addError(4, '', 'none');
     return true;
   }
 }
