@@ -17,24 +17,25 @@
       <img alt="logo" src="./Assets/Logo.png" width="auto" height="auto" />
     </div>
     <div class="main-navbar">
-      
-      <a href="#" class="active"><span>Home</span></a>
-      <a href="#"><span>Event Details</span></a>
-      <a href="#"><span>About Us</span></a>
-      <a href="#"><span>Contact</span></a>
-      <a href="#"><span>Past Events</span></a>
       <a href="javascript:void(0);" class="icon" onclick="editNav()">
         <i class="fa fa-bars"></i>
       </a>
+      <div class="dropdown-menu">
+        <a href="#" class="active"><span>Home</span></a>
+        <a href="#"><span>Event Details</span></a>
+        <a href="#"><span>About Us</span></a>
+        <a href="#"><span>Contact</span></a>
+        <a href="#"><span>Past Events</span></a>
+      </div>
     </div>
     </div>
   </div>
     <main>
+      <div id="close-navbar" class="" onclick="closeNav()"></div>
       <div class="hero-section">
         <div class="hero-content">
           <h1 class="hero-headline">
-            US Nationwide <br>
-            Game-a-Thon
+            US Nationwide Game-a-Thon
           </h1>
           <p class="hero-text">
             Do you live to game? Our next gaming event is now accepting
