@@ -21,8 +21,7 @@
         <i class="fa fa-bars"></i>
       </a>
       <div class="dropdown-menu">
-        <a href="#" class="active"><span>Home</span></a>
-        <a href="#"><span>Event Details</span></a>
+        <a href="#" class="active"><span>Event Details</span></a>
         <a href="#"><span>About Us</span></a>
         <a href="#"><span>Contact</span></a>
         <a href="#"><span>Past Events</span></a>
@@ -72,6 +71,7 @@
                   id="first"
                   name="first"
                   minlength="2"
+                  required
                 />
                 <p id="error-message1" style="display:none"></p>
               </div>
@@ -83,6 +83,7 @@
                   type="text"
                   id="last"
                   name="last"
+                  required
                 />
                 <p id="error-message2" style="display:none"></p>
               </div>
@@ -94,6 +95,7 @@
                   type="email"
                   id="email"
                   name="email"
+                  required
                 />
                 <p id="error-message3" style="display:none"></p>
               </div>
@@ -105,13 +107,16 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
+                  min = "1940-01-01"
+                  required
                 />
+                <p id="error-message4" style="display:none"></p>
               </div>
               <div
                 class="formData">
                 <label>How many tournaments have you attended? </label>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
-                <p id="error-message4" style="display:none"></p>
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" required>
+                <p id="error-message5" style="display:none"></p>
               </div>
               <p class="text-label">Where do you want to participate this year?</p>
               <div

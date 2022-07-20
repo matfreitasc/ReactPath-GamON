@@ -9,6 +9,7 @@ function editNav() {
     y.className = '';
   }
 }
+// Invisible Div to enable click away to close menu
 function closeNav() {
   var x = document.getElementById('myTopnav');
   var y = document.getElementById('close-navbar');
@@ -42,27 +43,30 @@ closeBtn.addEventListener('click', closeModal);
 document.querySelector('.close-modal').addEventListener('click', closeModal);
 document.querySelector('.close-x').addEventListener('click', closeModal);
 
-// --- Form Validation ---
+// --- Form Validation --- //
 
 // First Name
+document.forms['reserve']['first'].addEventListener('blur', firstName);
+document.forms['reserve']['first'].addEventListener('keyup', firstName);
+
 function firstName() {
   let firstName = document.forms['reserve']['first'];
+  let firstNameRegex =
+    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
   if (
-    firstName.value == '' ||
-    firstName.value == null ||
-    firstName.value.length < 2
+    firstNameRegex.test(firstName.value) &&
+    firstName.value.length > 2 &&
+    firstName.value != ''
   ) {
-    formData[0].setAttribute('data-error-visible', 'true');
-    addError(1, 'First Name is required', 'block');
-    return false;
-  } else {
     formData[0].setAttribute('data-error-visible', 'false');
     addError(1, '', 'none');
     return true;
+  } else {
+    formData[0].setAttribute('data-error-visible', 'true');
+    addError(1, 'First Name is required', 'block');
+    return false;
   }
 }
-document.forms['reserve']['first'].addEventListener('blur', firstName);
-document.forms['reserve']['first'].addEventListener('keyup', firstName);
 
 // Last Name
 function lastName() {
@@ -101,19 +105,35 @@ function validateEmail() {
   }
 }
 document.forms['reserve']['email'].addEventListener('change', validateEmail);
+document.forms['reserve']['email'].addEventListener('blur', validateEmail);
 document.forms['reserve']['email'].addEventListener('keyup', validateEmail);
 
-// Birthday validation using regex
-function validateBithday() {
-  let birthday = document.forms['reserve']['birthdate'];
-  let birthdayRegex =
-    /^(19[0-9]{2}|2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$/;
-  if (birthday.value.match(birthdayRegex)) {
-    formData[3].removeAttribute('data-error-visible');
-    return true;
-  } else {
+// Validate Birthday Date
+const birthdate = document.getElementById('birthdate');
+// Set Max date for Birthday
+const today = new Date();
+today.setFullYear(today.getFullYear() - 13);
+birthdate.setAttribute('max', today.toISOString().substring(0, 10));
+birthdate.addEventListener('change', validateBirthday);
+birthdate.addEventListener('blur', validateBirthday);
+birthdate.addEventListener('keyup', validateBirthday);
+
+document.forms['reserve']['quantity'].addEventListener(
+  'change',
+  validateTournament
+);
+function validateBirthday() {
+  const dateRegex =
+    /^(?:(?:19[0-9]{2}|200[0-9]|2010)([-/.]?)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:19(?:0[48]|[2648][048]|[13579][26])|2000|200[48])([-/.]?)0?2\2(?:29))$/gm;
+  if (!dateRegex.test(birthdate.value)) {
+    console.log(birthdate.value);
     formData[3].setAttribute('data-error-visible', 'true');
+    addError(4, 'You must be at least 13 years old', 'block');
     return false;
+  } else {
+    formData[3].setAttribute('data-error-visible', 'false');
+    addError(4, '', 'none');
+    return true;
   }
 }
 
@@ -122,11 +142,11 @@ function validateTournament() {
   let tournament = document.forms['reserve']['quantity'];
   if (tournament.value == '' || tournament.value == null) {
     formData[4].setAttribute('data-error-visible', 'true');
-    addError(4, "Please don't leave empty", 'block');
+    addError(5, 'This field cannot be empty', 'block');
     return false;
   } else {
     formData[4].setAttribute('data-error-visible', 'false');
-    addError(4, '', 'none');
+    addError(5, '', 'none');
     return true;
   }
 }
@@ -180,7 +200,7 @@ function validate() {
     firstName() &&
     lastName() &&
     validateEmail() &&
-    validateBithday() &&
+    validateBirthday() &&
     validateTournament() &&
     validateLocation() &&
     validateTerms()
@@ -204,7 +224,7 @@ form.addEventListener('submit', (e) => {
 function addError(errorNumber, errorMessage, display) {
   let p = document.querySelector('#error-message' + `${errorNumber}`);
   p.style.display = `${display}`;
-  p.style.fontSize = '10px';
+  p.style.fontSize = '12px';
   p.style.fontFamily = 'Roboto';
   p.style.fontWeight = 'Regular';
   p.style.color = 'red';

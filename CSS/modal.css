@@ -14,7 +14,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url('background.png');
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -68,6 +67,8 @@ img {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
+  text-decoration: underline solid;
+  text-underline-offset: 6px;
 }
 
 .topnav .icon {
@@ -246,11 +247,11 @@ input {
 }
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em;
+  font-size: 1rem;
   color: #e54858;
   display: block;
   margin-top: 7px;
-  margin-bottom: 7px;
+  margin-bottom: 2px;
   text-align: right;
   line-height: 0.3;
   opacity: 0;
@@ -262,12 +263,12 @@ input {
 .formData[data-error-visible='true'] .text-control {
   border: 2px solid #e54858;
 }
-/* 
+
 input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+  content: attr(data-error);
+  font-size: 0.6em;
+  color: red;
+}
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -493,7 +494,7 @@ input[data-error]::after {
 .hero-headline {
   font-size: 6rem;
   font-weight: normal;
-  white-space: nowrap;
+  width: 670px;
 }
 .hero-text {
   width: 146%;
@@ -533,6 +534,14 @@ footer {
   padding-left: 2vw;
   padding-right: 2vw;
   margin: 0 20px;
+}
+@media screen and (min-width: 769px) and (max-width: 942px) {
+  .topnav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 @media screen and (max-width: 800px) {
   .topnav {
