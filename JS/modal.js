@@ -126,7 +126,6 @@ function validateBirthday() {
   const dateRegex =
     /^(?:(?:19[0-9]{2}|200[0-9]|2010)([-/.]?)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:19(?:0[48]|[2648][048]|[13579][26])|2000|200[48])([-/.]?)0?2\2(?:29))$/gm;
   if (!dateRegex.test(birthdate.value)) {
-    console.log(birthdate.value);
     formData[3].setAttribute('data-error-visible', 'true');
     addError(4, 'You must be at least 13 years old', 'block');
     return false;
@@ -174,7 +173,6 @@ function validateLocation() {
     addError(5, 'Please select a location', 'block');
     return false;
   } else {
-    locationError.style.border = '2px solid #279e7a';
     addError(5, '', 'none');
     return true;
   }
@@ -214,10 +212,26 @@ function validate() {
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+  let firstName = document.forms['reserve']['first'];
+  let lastName = document.forms['reserve']['last'];
+  let email = document.forms['reserve']['email'];
+  let birthdate = document.forms['reserve']['birthdate'];
+  let tournament = document.forms['reserve']['quantity'];
+  let location = document.querySelectorAll('input[name="location"]');
+  let terms = document.forms['reserve']['checkbox1'];
   validate();
   if (criteriaCheck == true) {
     modalbg.style.display = 'none';
     modalSubmitted.style.display = 'block';
+    firstName.value = '';
+    lastName.value = '';
+    email.value = '';
+    birthdate.value = '';
+    tournament.value = '';
+    terms.checked = false;
+    location.forEach((item) => {
+      item.checked = false;
+    });
   }
 });
 
