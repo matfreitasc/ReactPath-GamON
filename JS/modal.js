@@ -183,12 +183,18 @@ function validateTerms() {
   let terms = document.forms['reserve']['checkbox1'];
   if (terms.checked == false) {
     formData[6].setAttribute('data-error-visible', 'true');
+    addError(6, 'You must accept the terms and conditions', 'block');
     return false;
   } else {
     formData[6].setAttribute('data-error-visible', 'false');
+    addError(6, '', 'none');
     return true;
   }
 }
+document.forms['reserve']['checkbox1'].addEventListener(
+  'change',
+  validateTerms
+);
 
 // Validate Form
 let criteriaCheck = false;
